@@ -21,10 +21,24 @@ public class SmartDelivery {
 
     @PostUpdate
     public void onPostUpdate(){
-        Delivered delivered = new Delivered();
-        BeanUtils.copyProperties(this, delivered);
-        delivered.publishAfterCommit();
+        if ("DELIVERED".equals(this.status)){
+            Delivered delivered = new Delivered();
+            BeanUtils.copyProperties(this, delivered);
+            delivered.publishAfterCommit();
+        }
 
+    }
+
+    public SmartDelivery(Ordered ordered){
+        this.orderId = ordered.getId();
+        this.storeId = ordered.getStoreId();
+        this.productName = ordered.getProductName();
+        this.qty = ordered.getQty();
+        this.status = "PRODUCT READY";
+        this.receptionDate = ordered.getOrderDate();
+    }
+
+    public SmartDelivery(){
 
     }
 

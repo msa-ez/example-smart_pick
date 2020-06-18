@@ -1,15 +1,7 @@
 package smartpick;
 
-import javax.persistence.*;
-import org.springframework.beans.BeanUtils;
-import java.util.List;
+public class PickCanceled extends AbstractEvent {
 
-@Entity
-@Table(name="Pick_table")
-public class Pick {
-
-    @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
     private Long orderId;
     private Long storeId;
@@ -18,34 +10,8 @@ public class Pick {
     private String status;
     private String deliveredDate;
 
-    @PostUpdate
-    public void onPostUpdate(){
-        if ("CONFIRMED".equals(this.status)){
-            Confirmed confirmed = new Confirmed();
-            BeanUtils.copyProperties(this, confirmed);
-            confirmed.publishAfterCommit();
-        } else if ("PICKED".equals(this.status)){
-            Picked picked = new Picked();
-            BeanUtils.copyProperties(this, picked);
-            picked.publishAfterCommit();
-        } else if ("CANCELED".equals(this.status)){
-            Canceled canceled = new Canceled();
-            BeanUtils.copyProperties(this, canceled);
-            canceled.publishAfterCommit();
-        }
-    }
-
-    public Pick(Delivered delivered){
-        this.orderId = delivered.getOrderId();
-        this.storeId = delivered.getStoreId();
-        this.productName = delivered.getProductName();
-        this.qty = delivered.getQty();
-        this.status = "PRODUCT ARRIVED";
-        this.deliveredDate = delivered.getDeliveryDate();
-    }
-
-    public Pick(){
-
+    public PickCanceled(){
+        super();
     }
 
     public Long getId() {
@@ -97,8 +63,4 @@ public class Pick {
     public void setDeliveredDate(String deliveredDate) {
         this.deliveredDate = deliveredDate;
     }
-
-
-
-
 }

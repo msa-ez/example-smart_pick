@@ -30,20 +30,28 @@ public class Order {
 
     @PostUpdate
     public void onPostUpdate(){
-        Canceled canceled = new Canceled();
-        BeanUtils.copyProperties(this, canceled);
-        canceled.publishAfterCommit();
+        if ("CANCELED".equals(this.status)){
+            smartpick.external.Pick pick = new smartpick.external.Pick();
+            pick.setOrderId(this.id);
+            // mappings goes here
+            pick = Application.applicationContext.getBean(smartpick.external.PickService.class)
+                    .inquiry(this.id);
+
+            if(pick != null){
+                if ("CONFIRMED".equals(pick.getStatus()) || "PICKED".equals(pick.getStatus())){
+                    throw new RuntimeException("취소 불가");
+                }
+            }
+
+            Canceled canceled = new Canceled();
+            BeanUtils.copyProperties(this, canceled);
+            canceled.publishAfterCommit();
+        }
     }
 
     @PreUpdate
     public void onPreUpdate(){
-        smartpick.external.Pick pick = new smartpick.external.Pick();
-        pick.setOrderId(this.id);
-        // mappings goes here
-        pick = Application.applicationContext.getBean(smartpick.external.PickService.class)
-            .inquiry(pick);
 
-        if("PICKED".equals(pick.getStatus())) throw new RuntimeException("이미 상품 수취");
     }
 
 

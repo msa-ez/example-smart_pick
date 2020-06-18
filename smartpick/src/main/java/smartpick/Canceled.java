@@ -1,18 +1,16 @@
+
 package smartpick;
 
 public class Canceled extends AbstractEvent {
 
     private Long id;
-    private Long orderId;
-    private Long storeId;
     private String productName;
     private Long qty;
+    private Long customerId;
+    private String orderDate;
     private String status;
-    private String deliveredDate;
-
-    public Canceled(){
-        super();
-    }
+    private Long storeId;
+    private String orderType;
 
     public Long getId() {
         return id;
@@ -20,20 +18,6 @@ public class Canceled extends AbstractEvent {
 
     public void setId(Long id) {
         this.id = id;
-    }
-    public Long getOrderId() {
-        return orderId;
-    }
-
-    public void setOrderId(Long orderId) {
-        this.orderId = orderId;
-    }
-    public Long getStoreId() {
-        return storeId;
-    }
-
-    public void setStoreId(Long storeId) {
-        this.storeId = storeId;
     }
     public String getProductName() {
         return productName;
@@ -49,6 +33,20 @@ public class Canceled extends AbstractEvent {
     public void setQty(Long qty) {
         this.qty = qty;
     }
+    public Long getCustomerId() {
+        return customerId;
+    }
+
+    public void setCustomerId(Long customerId) {
+        this.customerId = customerId;
+    }
+    public String getOrderDate() {
+        return orderDate;
+    }
+
+    public void setOrderDate(String orderDate) {
+        this.orderDate = orderDate;
+    }
     public String getStatus() {
         return status;
     }
@@ -56,11 +54,18 @@ public class Canceled extends AbstractEvent {
     public void setStatus(String status) {
         this.status = status;
     }
-    public String getDeliveredDate() {
-        return deliveredDate;
+    public Long getStoreId() {
+        return storeId;
     }
 
-    public void setDeliveredDate(String deliveredDate) {
-        this.deliveredDate = deliveredDate;
+    public void setStoreId(Long storeId) {
+        this.storeId = storeId;
+    }
+    public String getOrderType() {
+        return orderType;
+    }
+
+    public void setOrderType(String orderType) {
+        this.orderType = orderType;
     }
 }
