@@ -19,3 +19,5 @@
 2) Back Office 인 매장관리나 픽업관리에 문제가 발생해도 주문은 중단되어서는 안됨.
 
 <img src="https://user-images.githubusercontent.com/30004653/85090845-0ffb1700-b221-11ea-9f35-468f5ff9d99b.png">
+
+
