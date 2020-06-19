@@ -1,18 +1,16 @@
 # smart_pick
-http GET http://localhost:8088/orders
-http POST http://localhost:8088/orders productName="A향수" qty=1 customerId=10001 orderDate="20200617" status="ORDERED" storeId=90001 orderType="PICK"
-http POST http://localhost:8088/orders productName="B신발" qty=2 customerId=10002 orderDate="20200617" status="ORDERED" storeId=90003 orderType="PICK"
-http POST http://localhost:8088/orders productName="B신발" qty=2 customerId=10002 orderDate="20200617" status="ORDERED" storeId=90003 orderType="DELIVERY"
-http POST http://localhost:8088/orders productName="C셔츠" qty=3 customerId=10008 orderDate="20200617" status="ORDERED" storeId=90004 orderType="PICK"
 
-http PATCH http://localhost:8088/smartDeliveries/2 deliveryDate="20200617" status="DELIVERED"
-http PATCH http://localhost:8088/smartDeliveries/3 deliveryDate="20200617" status="DELIVERED"
+고객 요구사항
+1) 고객이 온라인 주문을 완료하면 주문타입이 스마트픽일 경우, 매장에 정보를 보낸다.
+2) 매장에서는 상품을 준비한 뒤, 준비가 완료되면 스마트 픽업센터에 상품을 보낸다.
+   - 이 때, 픽업센터에서는 주문정보를 수신받고 매장에서는 배달완료 상태가 된다.
+3) 픽업센터에서는 주문정보와 상품을 확인한 후, 컨펌 처리한다. 
+   - 이 때, 고객 주문서의 상태는 "주문완료" 에서 "픽업대기" 로 변경된다.
+4) 고객은 상태 확인 후, 픽업센터에서 상품을 수령한다.
+   - 이 때, 주문서와 픽업센터 모두 "수령" 상태로 변경되며 구매프로세스가 종료된다.
+5) 취소는 2가지 형태가 있다.
+   - 먼저, 아직 픽업센터에 주문 정보가 없을 때 취소가 가능하며 주문 취소 시, 매장에 취소 정보를 보낸다.
+   - 두번째로, 픽업센터에 주문 정보는 있지만 아직 컨펌을 하지 않은 상태에는 취소가 가능하며
+     이때 주문취소할 경우, 픽업센터에 "취소" 정보를 보내고 이를 수신한 픽업센터에서는 매장으로 "픽업취소"를 보낸다.
+   - 픽업센터에서 컨펌 완료했을 시에는 취소가 불가능하다.
 
-http PATCH http://localhost:8088/picks/2 deliveryDate="20200617" status="CONFIRMED"
-http PATCH http://localhost:8088/picks/2 deliveryDate="20200617" status="PICKED"
-
-http PATCH http://localhost:8088/orders/1 status="CANCELED"
-http PATCH http://localhost:8088/orders/4 status="CANCELED"
-
-
-http GET http://a6c022ea1caf54b1f8aecddeec081eb9-1554629413.ap-northeast-2.elb.amazonaws.com/orders
