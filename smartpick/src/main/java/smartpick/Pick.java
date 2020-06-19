@@ -29,9 +29,9 @@ public class Pick {
             BeanUtils.copyProperties(this, picked);
             picked.publishAfterCommit();
         } else if ("CANCELED".equals(this.status)){
-            Canceled canceled = new Canceled();
-            BeanUtils.copyProperties(this, canceled);
-            canceled.publishAfterCommit();
+            PickCanceled pickCanceled = new PickCanceled();
+            BeanUtils.copyProperties(this, pickCanceled);
+            pickCanceled.publishAfterCommit();
         }
     }
 

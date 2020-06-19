@@ -41,12 +41,12 @@ public class PolicyHandler{
 
     @StreamListener(KafkaProcessor.INPUT)
     @Transactional
-    public void wheneverPickCanceled_Cancel(@Payload PickCanceled pickCanceled){
+    public void wheneverPickCanceled_PickCanceled(@Payload PickCanceled pickCanceled){
 
         if(pickCanceled.isMe()){
             System.out.println("##### listener Cancel : " + pickCanceled.toJson());
             SmartDelivery smartDelivery = smartDeliveryRepository.findByOrderId(pickCanceled.getOrderId());
-            smartDelivery.setStatus("CANCELED");
+            smartDelivery.setStatus("PICK CANCELED");
         }
     }
 }
