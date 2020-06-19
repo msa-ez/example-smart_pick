@@ -19,7 +19,11 @@ spring:
         - id: smartpick
           uri: http://localhost:8083
           predicates:
-            - Path=/picks/** 
+            - Path=/picks/**
+        - id: report
+          uri: http://localhost:8084
+          predicates:
+            - Path= /reports/**
       globalcors:
         corsConfigurations:
           '[/**]':
@@ -50,7 +54,11 @@ spring:
         - id: smartpick
           uri: http://smartpick:8080
           predicates:
-            - Path=/picks/** 
+            - Path=/picks/**
+        - id: report
+          uri: http://report:8080
+          predicates:
+            - Path= /reports/**
       globalcors:
         corsConfigurations:
           '[/**]':

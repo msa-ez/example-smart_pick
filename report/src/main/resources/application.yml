@@ -24,7 +24,7 @@ spring:
                   serde: org.apache.kafka.common.serialization.Serdes$StringSerde
       bindings:
         event-in:
-          group: order
+          group: report
           destination: smartpick
           contentType: application/json
         event-out:
@@ -35,17 +35,8 @@ logging:
   level:
     org.hibernate.type: trace
     org.springframework.cloud: debug
-api:
-  url:
-    smartpick: http://localhost:8083
-
-hystrix:
-  command:
-    default:
-      execution.isolation.thread.timeoutInMilliseconds: 600
-
 server:
-  port: 8081
+  port: 8084
 ---
 
 spring:
@@ -65,19 +56,9 @@ spring:
                   serde: org.apache.kafka.common.serialization.Serdes$StringSerde
       bindings:
         event-in:
-          group: order
+          group: report
           destination: smartpick
           contentType: application/json
         event-out:
           destination: smartpick
           contentType: application/json
-
-api:
-  url:
-    smartpick: http://smartpick:8080
-
-hystrix:
-  command:
-    # 전역설정
-    default:
-      execution.isolation.thread.timeoutInMilliseconds: 600
